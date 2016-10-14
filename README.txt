@@ -5,7 +5,8 @@ How to compile :
 
 How to launch :
 - eclipse : 
-  * open "UrbiCOntrol" properties, then choose "Run/Debug Settings" -> "Edit" -> "Arguments"
+  * open "ReetiControl" properties, then choose "Run/Debug Settings" -> "Edit" -> "Arguments"
+    If no configuration is available in "Run/Debug Settings", click "New.."-> "Java Application" -> "OK", search Main.java for "Main class:", click "OK", then "Edit" -> "Arguments".
   * in the text field "VM arguments", add : "-Djava.library.path=/usr/local/gostai/lib/"
   * press the launch button
   
