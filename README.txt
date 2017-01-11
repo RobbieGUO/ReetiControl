@@ -21,5 +21,5 @@ How to launch(The project should be launched on Reeti):
   * press the launch button.
   
   Port
-  - the port used by the code is 1256
+  - the port used in the project is 1256
  
