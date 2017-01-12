@@ -34,6 +34,13 @@ public class CereprocHandle extends Thread {
 		this.mDatagramPacket = mDatagramPacket;
 	}
 	
+//	public CereprocHandle(String voice_name, String license_name, String content, ReceiveCommand recmd) {
+//		this.voice_name = voice_name;
+//		this.license_name = license_name;
+//		this.content = content;
+//		this.recmd = recmd;
+//	}
+	
 	@Override
 	public void run() {
 		LipMove lipmove = new LipMove();
@@ -87,6 +94,13 @@ public class CereprocHandle extends Thread {
 		cerevoice_eng.CPRCEN_engine_channel_speak(eng, chan_handle, "", 0, 1);
 		// stop lip moving
 		lipmove.setrunflag(false);
+		
+		try {
+			lipmove.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// Flush any remaining audio
 		au.flush();
 		cb.ClearCallback(eng, chan_handle);
