@@ -21,7 +21,7 @@ public class LipMove extends Thread {
 		while (runflag) {
 			System.out.println("Lip Move");
 			
-			Main.client.send("Global.servo.bottomLip = 40.0 smooth:0.3s;");
+			Main.client.send("Global.servo.bottomLip = 40.0 smooth:0.3s,");
 			try {
 				sleep(300);
 			} catch (InterruptedException e) {
@@ -29,7 +29,7 @@ public class LipMove extends Thread {
 				e.printStackTrace();
 			}
 			
-			Main.client.send("Global.servo.bottomLip = 75.0 smooth:0.3s;");
+			Main.client.send("Global.servo.bottomLip = 75.0 smooth:0.3s,");
 			try {
 				sleep(300);
 			} catch (InterruptedException e) {
