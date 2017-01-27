@@ -7,9 +7,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.net.DatagramPacket;
-
+import Main.Main;
 import Main.ReceiveCommand;
-
 import com.cereproc.cerevoice_eng.*;
 
 public class CereprocHandle extends Thread {
@@ -25,6 +24,7 @@ public class CereprocHandle extends Thread {
 	private Float rate;
 	private byte[] utf8bytes;
 	private DatagramPacket mDatagramPacket;
+	private Audioline au;
 
 	public CereprocHandle(String voice_name, String license_name, String content, ReceiveCommand recmd, DatagramPacket mDatagramPacket) {
 		this.voice_name = voice_name;
@@ -44,7 +44,7 @@ public class CereprocHandle extends Thread {
 	@Override
 	public void run() {
 		LipMove lipmove = new LipMove();
-		lipmove.start();
+//		lipmove.start();
 
 		// Load the voice
 //		System.out.println("INFO: creating CereVoice Engine");
@@ -75,12 +75,15 @@ public class CereprocHandle extends Thread {
 
 		// Open an audio line for output
 		rate = new Float(rate_str);
-		Audioline au = new Audioline(rate.floatValue());
+		au = new Audioline(rate.floatValue());
 		// Set our callback class onto it
 		cb = new MyTtsCallback(au.line());
 		cb.SetCallback(eng, chan_handle);
 
-//		String strLine = " My name, is Anna.";
+		// examples:
+		//		content = "<voice emotion='happy'>I have found the recipe. Could you tell me how many you are?</voice>";
+		//		content = "Nice to meet you. I am waiting you for a long time";
+		//		content = "<spurt audio=\"g0001_004\">cough</spurt> My name is Anna.";
 		try {
 			utf8bytes = content.getBytes("UTF-8");
 			cerevoice_eng.CPRCEN_engine_channel_speak(eng, chan_handle, content
@@ -89,11 +92,12 @@ public class CereprocHandle extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		lipmove.start();
 		// Flush engine
 		cerevoice_eng.CPRCEN_engine_channel_speak(eng, chan_handle, "", 0, 1);
 		// stop lip moving
 		lipmove.setrunflag(false);
+		System.out.println("Lipmove is being stopped");
 		
 		try {
 			lipmove.join();
@@ -101,6 +105,9 @@ public class CereprocHandle extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		Main.SpeakMark = false;
+		
 		// Flush any remaining audio
 		au.flush();
 		cb.ClearCallback(eng, chan_handle);
@@ -108,7 +115,12 @@ public class CereprocHandle extends Thread {
 		cerevoice_eng.CPRCEN_engine_channel_close(eng, chan_handle);
 		// Delete the engine
 		cerevoice_eng.CPRCEN_engine_delete(eng);
+		
 		System.out.println("INFO: finish");
 		recmd.sendString(mDatagramPacket,"finish");
+	}
+	
+	public void stopVoice(){
+		au.flushLine();
 	}
 }
