@@ -9,9 +9,9 @@ How to compile :
 - build
 
 How to launch(The project should be launched on Reeti):
-- line 23, voice_name is the directory of your voce file (eg 'cerevoice_heather_3.0.9_22k.voice'). 
-- line 24 license_name is the directory of the license key of your voce file.
-- line 34 and line 35 is used to set cerevoice_eng.jar on the library path.
+- line 22, voice_name is the directory of your voce file (eg 'cerevoice_heather_3.0.9_22k.voice'). 
+- line 23 license_name is the directory of the license key of your voce file.
+- line 37 and line 38 is used to set cerevoice_eng.jar on the library path.
   the string parameter of addDir is the directory of cerevoice_eng.jar.
   the string parameter of System.loadLibrary is  "cerevoice_eng".
 - eclipse: 
