@@ -1,3 +1,4 @@
+
 package cereprocTts;
 
 import javax.sound.sampled.SourceDataLine;
@@ -7,6 +8,7 @@ import com.cereproc.cerevoice_eng.SWIGTYPE_p_CPRC_abuf;
 import com.cereproc.cerevoice_eng.SWIGTYPE_p_CPRC_abuf_trans;
 import com.cereproc.cerevoice_eng.TtsEngineCallback;
 import com.cereproc.cerevoice_eng.cerevoice_eng;
+import Main.Main;
 
 //In CereVoice, a callback can be specified to receive data every
 //time a phrase has been synthesised. The user application can
@@ -73,6 +75,8 @@ public class MyTtsCallback extends TtsEngineCallback{
 	 	    b[i * 2] = (byte) ((s & 0xff00) >> 8);
 	 	    b[i * 2 + 1] = (byte) (s & 0x00ff);
 	 	}
+	 	
+	 	Main.SpeakMark = true;
 		// Send the audio data to the Java audio player
 	 	line.write(b, 0, sz * 2);
 	 }
