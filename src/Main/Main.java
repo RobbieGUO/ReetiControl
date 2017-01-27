@@ -16,12 +16,15 @@ public class Main {
 	// IP address is used to send commands to reeti
 	private static final String IP = "127.0.0.1";
 
-	// Lock the client.send() function
 	public static final Object taskLock = new Object();
-
+	
 	// Process command line arguments
 	private static final String voice_name = "/home/reeti/workspace/Archiv/cereproc/javalib/cerevoice_heather_3.2.0_48k.voice";
 	private static final String license_name = "/home/reeti/workspace/Archiv/cereproc/javalib/license.lic";
+	
+	// mark Reeti is speaking or not
+	public static Boolean SpeakMark = false;
+	private static CereprocHandle voice;
 
 	static {
 		// The cerevoice_eng library must be on the path,
@@ -95,8 +98,16 @@ public class Main {
 				synchronized (Main.taskLock) {
 					client.send(message);
 				}
-			} else {
-				CereprocHandle voice = new CereprocHandle(voice_name,
+				// stop speech
+			} else if(message.indexOf("stopCereprocTtsSpeech") != -1)
+				{
+				if(Main.SpeakMark ==  true){
+					voice.stopVoice();
+					System.out.println("Speech Stop Executed");
+				}
+				// execute tts function
+			}else{
+				voice = new CereprocHandle(voice_name,
 						license_name, message, recmd, dataPackage);
 				voice.start();
 			}
