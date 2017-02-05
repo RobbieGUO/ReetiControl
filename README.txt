@@ -14,12 +14,7 @@ How to launch(The project should be launched on Reeti):
 - line 37 and line 38 is used to set cerevoice_eng.jar on the library path.
   the string parameter of addDir is the directory of cerevoice_eng.jar.
   the string parameter of System.loadLibrary is  "cerevoice_eng".
-- eclipse: 
-  * open "ReetiControl" properties, choose "Run/Debug Settings" -> "Edit" -> "Arguments"
-    If no configuration is available in "Run/Debug Settings", click "New.."-> "Java Application" -> "OK", search Main.java for "Main class:", click "OK", then "Edit" -> "Arguments".
-  * in the text field "VM arguments", add : "-Djava.library.path=/usr/local/gostai/lib/". Click OK.
-  * press the launch button.
   
-  Port
-  - the port used in the project is 1256
+Port
+- the port used in the project is 1256
  
